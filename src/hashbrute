@@ -57,11 +57,11 @@ if len(target_hash) == 0:
     print(f"[{r}-{w}] Invalid hash.")
     sys.exit(1)
 
-file_wordlist = input(f"[{b}#{w}] Enter path to wordlist file: ").strip()
+wordlist_file = input(f"[{b}#{w}] Enter path to wordlist file: ").strip()
 
 try:
     print()
-    with open(file_wordlist, 'r', encoding='latin-1') as f:
+    with open(wordlist_file, 'r', encoding='latin-1') as f:
         for password in f:
             password = password.strip()
             password_hash = hash_func(password.encode()).hexdigest()
@@ -76,4 +76,3 @@ except FileNotFoundError:
     print(f"[{r}-{w}] Wordlist file not found.")
 except IOError:
     print(f"[{r}-{w}] Error reading wordlist file.")
-  
