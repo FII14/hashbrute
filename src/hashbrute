@@ -109,8 +109,8 @@ try:
             stop_animation_thread()
             print(f"\n\n{c}==========================================================={p}")
             print(f"{w}[{g}+{w}] Password ditemukan: '{password}'{p}")
-            print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
-            print(f"{w}[{g}+{w}] Hash target: {hash_target}{p}")
+            print(f"{w}[{g}+{w}] Jenis hash: '{algoritma}'{p}")
+            print(f"{w}[{g}+{w}] Hash target: '{hash_target}'{p}")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
@@ -120,8 +120,8 @@ try:
         stop_animation_thread()
         print(f"\n\n{c}==========================================================={p}")
         print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
-        print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
-        print(f"{w}[{r}-{w}] Hash target: {hash_target}{p}")
+        print(f"{w}[{r}-{w}] Jenis hash: '{algoritma}'{p}")
+        print(f"{w}[{r}-{w}] Hash target: '{hash_target}'{p}")
         print(f"{w}[{r}-{w}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
         print(f"{c}-----------------------------------------------------------{p}")
 
