@@ -24,7 +24,7 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animation_delay = 0.1
+animation_delay = 0
 stop_animation = False
 
 def animate(hash_target):
@@ -32,14 +32,14 @@ def animate(hash_target):
     symbol_index = 0
     while not stop_animation:
         symbol = symbols[symbol_index]
-        sys.stdout.write(f"\r{w}Sedang memecahkan kata sandi: {hash_target} {symbol}")
+        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi hash: {hash_target} {symbol}{p}")
         sys.stdout.flush()
         symbol_index = (symbol_index + 1) % len(symbols)
         time.sleep(animation_delay)
 
 def stop_animation_thread():
     global stop_animation
-    time.sleep(2)
+    time.sleep(0)
     stop_animation = True
 
 print(f"""{c}
@@ -87,9 +87,9 @@ try:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
         print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
-        time.sleep(2)
+        time.sleep(3)
         print(f"\r{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
-        time.sleep(2)
+        time.sleep(3)
 
     print()
     password_ditemukan = False
