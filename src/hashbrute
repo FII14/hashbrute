@@ -24,21 +24,21 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animation_delay = 0
+animation_delay = 0.5
 stop_animation = False
 
-def animate(hash_target):
+def animate(hash_target, password):
     while not stop_animation:
         for c in itertools.cycle(['|', '/', '-', '\\']):
             if stop_animation:
                 break
-            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} {c}")
+            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} - Password: {password} {c}")
             sys.stdout.flush()
             time.sleep(animation_delay)
 
 def stop_animation_thread():
     global stop_animation
-    time.sleep(0)
+    time.sleep(2)
     stop_animation = True
 
 print(f"""{c}
@@ -95,7 +95,7 @@ try:
     jumlah_password_dicoba = 0
 
     # Memulai animasi
-    animation_thread = threading.Thread(target=animate, args=(hash_target,))
+    animation_thread = threading.Thread(target=animate, args=(hash_target, ''))
     animation_thread.start()
 
     for password in seluruh_password:
@@ -111,6 +111,10 @@ try:
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
+        else:
+            # Update password yang sedang dicoba dalam animasi
+            animation_thread = threading.Thread(target=animate, args=(hash_target, password))
+            animation_thread.start()
 
     # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
