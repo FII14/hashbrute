@@ -2,6 +2,7 @@
 
 import hashlib
 import sys
+import time
 from colorama import Fore
 
 # Kode warna
@@ -66,7 +67,9 @@ try:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
         print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
+        time.sleep(5)
         print(f"{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
+        time.sleep(5)
 
     print()
     password_ditemukan = False
@@ -77,7 +80,7 @@ try:
         password_hash = fungsi_hash(password.encode()).hexdigest()
         if password_hash == hash_target:
             password_ditemukan = True
-            print(f"{c}==========================================================={p}")
+            print(f"\n{c}==========================================================={p}")
             print(f"[{g}+{w}] Password ditemukan: '{password}'")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
@@ -86,7 +89,7 @@ try:
         else:
             print(f"[{r}-{w}] Password salah '{password}'")
     if not password_ditemukan:
-        print(f"{c}==========================================================={p}")
+        print(f"\n{c}==========================================================={p}")
         print(f"\n[{r}-{w}] Password tidak ditemukan dalam wordlist.")
         print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
         print(f"{c}-----------------------------------------------------------{p}")
