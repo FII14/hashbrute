@@ -20,7 +20,7 @@ chmod +x src/hashbrute
 if [[ $(uname -o) == "Android" ]]; then
     pkg update
     pkg install python3
-    pip3 install -r requirements.txt
+    pip3 install -r persyaratan.txt
     mv src/hashbrute /data/data/com.termux/files/usr/bin
     echo -e "${g}[•] ${r}Instalasi selesai."
     echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
@@ -30,7 +30,7 @@ if [[ $(uname -o) == "Android" ]]; then
 elif [[ $(uname -o) == "GNU/Linux" ]]; then
     sudo apt-get update 
     sudo apt-get install python3-pip
-    pip3 install -r requirements.txt 
+    pip3 install -r persyaratan.txt 
     mv src/hashbrute /usr/bin
     echo -e "${g}[•] ${r}Instalasi selesai."
     echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
