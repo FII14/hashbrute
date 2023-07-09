@@ -3,8 +3,6 @@
 import hashlib
 import sys
 import time
-import threading
-import itertools
 from colorama import Fore
 
 # Kode warna
@@ -23,23 +21,6 @@ algoritma_hash = {
     "3": ("sha256", hashlib.sha256),
     "4": ("sha512", hashlib.sha512)
 }
-
-animation_delay = 0
-stop_animation = False
-
-def animate(hash_target, password):
-    while not stop_animation:
-        for c in itertools.cycle(['|', '/', '-', '\\']):
-            if stop_animation:
-                break
-            sys.stdout.write(f"\rSedang memecahkan kata sandi Hash: {hash_target} - Password: {password} {c}")
-            sys.stdout.flush()
-            time.sleep(animation_delay)
-
-def stop_animation_thread():
-    global stop_animation
-    time.sleep(0)
-    stop_animation = True
 
 print(f"""{c}
 {y}     .-.      _______
@@ -85,7 +66,7 @@ try:
     with open(file_wordlist, 'r', encoding='latin-1') as f:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
-        print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
+        print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'", end='')
         time.sleep(2)
         print(f"\r{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
         time.sleep(2)
@@ -94,31 +75,23 @@ try:
     password_ditemukan = False
     jumlah_password_dicoba = 0
 
-    # Memulai animasi
-    animation_thread = threading.Thread(target=animate, args=(hash_target, ''))
-    animation_thread.start()
-
     for password in seluruh_password:
         jumlah_password_dicoba += 1
         password = password.strip()
         password_hash = fungsi_hash(password.encode()).hexdigest()
         if password_hash == hash_target:
             password_ditemukan = True
-            # Menghentikan animasi
-            stop_animation_thread()
             print(f"\n{c}==========================================================={p}")
             print(f"[{g}+{w}] Password ditemukan: '{password}'")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
         else:
-            # Update password yang sedang dicoba dalam animasi
-            animation_thread = threading.Thread(target=animate, args=(hash_target, password))
-            animation_thread.start()
+            sys.stdout.write(f"\rSedang memecahkan password hash: {hash_target} - Password: {password[:20]}...")
+            sys.stdout.flush()
+            time.sleep(0.1)
 
-    # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
-        stop_animation_thread()
         print(f"\n{c}==========================================================={p}")
         print(f"[{r}-{w}] Password tidak ditemukan dalam wordlist.")
         print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
