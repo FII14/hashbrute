@@ -2,7 +2,7 @@
 
 import hashlib
 import sys
-from colorama import Fore, Style
+from colorama import Fore
 
 # Kode warna
 r = Fore.LIGHTRED_EX
@@ -22,17 +22,17 @@ algoritma_hash = {
 }
 
 print(f"""{c}
-     .-.      _______                          
-    ()``; |==|_______D   'fae8a9257e154175da4193dbf6552ef6'
-    / ('      [--|--]
-(  /  |       |  |  |
- \(_)_]]      |  |  |
--------------------------------------------------
+{y}     .-.      _______
+{y}    ()``; |==|_______D   {r}'fae8a9257e154175da4193dbf6552ef6'
+{y}    / ('      [--|--]
+{y}(  /  |       |  |  |
+{y} \(_)_]]      |  |  |
+{c}-----------------------------------------------------------
 
-             Pemecah Password Hash
-               Dibuat oleh FII14
+{w}                   Pemecah Password Hash
+{w}                     Dibuat oleh FII14
 
-=================================================
+{c}==========================================================={p}
 {p}""")
 
 print(f"{g}Algoritma hash yang didukung{w}:")
@@ -59,9 +59,9 @@ if len(hash_target) == 0:
     sys.exit(1)
 
 file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
-print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
 
 try:
+    print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
     jumlah_seluruh_password = 0
     with open(file_wordlist, 'r', encoding='latin-1') as f:
         seluruh_password = f.readlines()
@@ -77,19 +77,19 @@ try:
         password_hash = fungsi_hash(password.encode()).hexdigest()
         if password_hash == hash_target:
             password_ditemukan = True
-            print(f"{c}================================================={p}")
+            print(f"{c}==========================================================={p}")
             print(f"[{g}+{w}] Password ditemukan: '{password}'")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
-            print(f"{c}-------------------------------------------------{p}")
+            print(f"{c}-----------------------------------------------------------{p}")
 
             break
         else:
             print(f"[{r}-{w}] Password salah '{password}'")
     if not password_ditemukan:
-        print(f"{c}================================================={p}")
+        print(f"{c}==========================================================={p}")
         print(f"\n[{r}-{w}] Password tidak ditemukan dalam wordlist.")
         print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
-        print(f"{c}-------------------------------------------------{p}")
+        print(f"{c}-----------------------------------------------------------{p}")
 
 except FileNotFoundError:
     print(f"\n[{r}-{w}] File wordlist tidak ditemukan.")
