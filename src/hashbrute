@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import hashlib
+import os
 import sys
 import time
 import threading
@@ -41,6 +42,8 @@ def stop_animation_thread():
     global stop_animation
     time.sleep(2)
     stop_animation = True
+
+os.system("clear")
 
 print(f"""{c}
 {y}     .-.      _______
