@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+
+import hashlib
+import sys
+from colorama import Fore, Style
+
+# Color codes
+r = Fore.LIGHTRED_EX
+g = Fore.LIGHTGREEN_EX
+c = Fore.LIGHTCYAN_EX
+p = Fore.RESET
+w = Fore.LIGHTWHITE_EX
+y = Fore.LIGHTYELLOW_EX
+b = Fore.LIGHTBLUE_EX
+
+# Supported hash algorithms
+hash_algorithms = {
+    "1": ("md5", hashlib.md5),
+    "2": ("sha1", hashlib.sha1),
+    "3": ("sha256", hashlib.sha256),
+    "4": ("sha512", hashlib.sha512)
+}
+
+print(f"""{c}
+-------------------------------------------------
+{w}       .  ..__. __..  .  .__ .  ..___..___
+       |__|[__](__ |__|  [__)|  |  |  [__
+       |  ||  |.__)|  |  |  \|__|  |  [___
+{c}-------------------------------------------------
+
+             {w}Hash Password Cracker
+                Coded by FII14{c}
+
+=================================================
+{p}""")
+
+print(f"{g}Supported hash algorithms{w}:")
+print("==========================")
+for i, (algorithm, _) in hash_algorithms.items():
+    print(f"[{y}{i}{w}] {algorithm}")
+print(f"[{r}Q{w}] Quit")
+
+choice = input(f"\n[{b}#{w}] Enter the hash algorithm (1-4) or 'Q' to quit: ").strip()
+
+if choice.upper() == 'Q':
+    print(f"[{g}+{w}] Quitting the program.")
+    sys.exit(0)
+
+try:
+    algorithm, hash_func = hash_algorithms[choice]
+except KeyError:
+    print(f"[{r}-{w}] Invalid input.")
+    sys.exit(1)
+
+target_hash = input(f"[{b}#{w}] Enter target hash: ").strip()
+if len(target_hash) == 0:
+    print(f"[{r}-{w}] Invalid hash.")
+    sys.exit(1)
+
+file_wordlist = input(f"[{b}#{w}] Enter path to wordlist file: ").strip()
+
+try:
+    print()
+    with open(file_wordlist, 'r', encoding='latin-1') as f:
+        for password in f:
+            password = password.strip()
+            password_hash = hash_func(password.encode()).hexdigest()
+            if password_hash == target_hash:
+                print(f"[{g}+{w}] Password found: '{password}'")
+                sys.exit(0)
+            else:
+                print(f"[{r}-{w}] Incorrect password for '{password}'")
+        else:
+            print(f"[{r}-{w}] The provided hash is not a {algorithm.upper()} hash.")
+except FileNotFoundError:
+    print(f"[{r}-{w}] Wordlist file not found.")
+except IOError:
+    print(f"[{r}-{w}] Error reading wordlist file.")
+  
