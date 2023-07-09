@@ -118,7 +118,7 @@ try:
     # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
         stop_animation_thread()
-        print(f"\n{c}==========================================================={p}")
+        print(f"\n\n{c}==========================================================={p}")
         print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
         print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
         print(f"{w}[{r}-{w}] Hash target: {hash_target}{p}")
