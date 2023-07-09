@@ -32,7 +32,7 @@ def animate(hash_target, password):
         for c in itertools.cycle(['|', '/', '-', '\\']):
             if stop_animation:
                 break
-            sys.stdout.write(f"\rSedang memecahkan password hash: {hash_target} - Password: {password} {c}")
+            sys.stdout.write(f"\rSedang memecahkan password hash: {hash_target} - Password: {password} {c}   ")
             sys.stdout.flush()
             time.sleep(animation_delay)
 
@@ -118,6 +118,7 @@ try:
             truncated_password = password[:30] + "..." if len(password) > 30 else password
             animation_thread = threading.Thread(target=animate, args=(hash_target, truncated_password))
             animation_thread.start()
+            animation_thread.join()
 
     # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
