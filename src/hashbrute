@@ -3,6 +3,8 @@
 import hashlib
 import sys
 import time
+import threading
+import itertools
 from colorama import Fore
 
 # Kode warna
@@ -21,6 +23,24 @@ algoritma_hash = {
     "3": ("sha256", hashlib.sha256),
     "4": ("sha512", hashlib.sha512)
 }
+
+animation_delay = 0.1
+stop_animation = False
+
+def animate(hash_target):
+    symbols = ['|', '/', '-', '\\']
+    symbol_index = 0
+    while not stop_animation:
+        symbol = symbols[symbol_index]
+        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi hash: {hash_target} {symbol}{p}")
+        sys.stdout.flush()
+        symbol_index = (symbol_index + 1) % len(symbols)
+        time.sleep(animation_delay)
+
+def stop_animation_thread():
+    global stop_animation
+    time.sleep(2)
+    stop_animation = True
 
 print(f"""{c}
 {y}     .-.      _______
@@ -67,13 +87,17 @@ try:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
         print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
-        time.sleep(2)
+        time.sleep(3)
         print(f"\r{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
-        time.sleep(2)
+        time.sleep(3)
 
     print()
     password_ditemukan = False
     jumlah_password_dicoba = 0
+
+    # Memulai animasi
+    animation_thread = threading.Thread(target=animate, args=(hash_target,))
+    animation_thread.start()
 
     for password in seluruh_password:
         jumlah_password_dicoba += 1
@@ -81,19 +105,24 @@ try:
         password_hash = fungsi_hash(password.encode()).hexdigest()
         if password_hash == hash_target:
             password_ditemukan = True
-            print(f"\r{c}==========================================================={p}")
-            print(f"[{g}+{w}] Password ditemukan: '{password}'")
+            # Menghentikan animasi
+            stop_animation_thread()
+            print(f"\n{c}==========================================================={p}")
+            print(f"{w}[{g}+{w}] Password ditemukan: '{password}'{p}")
+            print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
+            print(f"{w}[{g}+{w}] Hash target: {hash_target}{p}")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
-        else:
-            print(f"\r[{r}-{w}] [*] Sedang memecahkan password hash: {hash_target} - Password: {password}", end='')
-            sys.stdout.flush()
 
+    # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
-        print(f"\r{c}==========================================================={p}")
-        print(f"[{r}-{w}] Password tidak ditemukan dalam wordlist.")
-        print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
+        stop_animation_thread()
+        print(f"\n{c}==========================================================={p}")
+        print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
+        print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
+        print(f"{w}[{r}-{w}] Hash target: {hash_target}{p}")
+        print(f"{w}[{r}-{w}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
         print(f"{c}-----------------------------------------------------------{p}")
 
 except FileNotFoundError:
