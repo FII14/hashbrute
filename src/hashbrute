@@ -24,7 +24,7 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animation_delay = 0.1
+animation_delay = 0
 stop_animation = False
 
 def animate(hash_target):
@@ -32,13 +32,13 @@ def animate(hash_target):
         for c in itertools.cycle(['|', '/', '-', '\\']):
             if stop_animation:
                 break
-            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} {c}\n")
+            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} {c}")
             sys.stdout.flush()
             time.sleep(animation_delay)
 
 def stop_animation_thread():
     global stop_animation
-    time.sleep(2)
+    time.sleep(0)
     stop_animation = True
 
 print(f"""{c}
