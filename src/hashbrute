@@ -61,11 +61,11 @@ if len(hash_target) == 0:
 file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
 
 try:
-    print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
     jumlah_seluruh_password = 0
     with open(file_wordlist, 'r', encoding='latin-1') as f:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
+        print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
         print(f"{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
 
     print()
