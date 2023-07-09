@@ -1,0 +1,10 @@
+password
+hash
+superman
+batman
+superhero
+myhero
+12345678
+qwerty123
+powerfull
+superman123
