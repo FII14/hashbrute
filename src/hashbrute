@@ -66,9 +66,9 @@ print(f"{g}Algoritma hash yang didukung{w}:")
 print("=============================")
 for i, (algoritma, _) in algoritma_hash.items():
     print(f"[{y}{i}{w}] {algoritma}")
-print(f"[{r}Q{w}] Keluar")
+print(f"[{r}K{w}] Keluar")
 
-pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'Q' untuk keluar: ").strip()
+pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'K' untuk keluar: ").strip()
 
 if pilihan.upper() == 'Q':
     print(f"\n[{g}+{w}] Keluar dari program.")
