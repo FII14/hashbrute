@@ -1,1 +1,1 @@
-# hashbrute 1.28
+# hashbrute
