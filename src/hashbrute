@@ -25,7 +25,7 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animation_delay = 0.1
+animation_delay = 0
 stop_animation = False
 
 def animate(hash_target):
@@ -40,7 +40,7 @@ def animate(hash_target):
 
 def stop_animation_thread():
     global stop_animation
-    time.sleep(2)
+    time.sleep(0)
     stop_animation = True
 
 os.system("clear")
