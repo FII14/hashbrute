@@ -1,3 +1,1 @@
-# hashbrute
-
-![](screenshot_hashbrute.jpg)
+# hashbrute 1.28
