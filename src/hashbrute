@@ -24,7 +24,7 @@ algoritma_hash = {
 
 print(f"""{c}
 {y}     .-.      _______
-{y}    ()``; |==|_______D   {r}'fae8a9257e154175da4193dbf6552ef6'
+{y}    ()``; |==|_______D   {r}'a63e07a8a2c9df821b398df3ce7609da'
 {y}    / ('      [--|--]
 {y}(  /  |       |  |  |
 {y} \(_)_]]      |  |  |
@@ -90,7 +90,7 @@ try:
             print(f"[{r}-{w}] Password salah '{password}'")
     if not password_ditemukan:
         print(f"\n{c}==========================================================={p}")
-        print(f"\n[{r}-{w}] Password tidak ditemukan dalam wordlist.")
+        print(f"[{r}-{w}] Password tidak ditemukan dalam wordlist.")
         print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
         print(f"{c}-----------------------------------------------------------{p}")
 
