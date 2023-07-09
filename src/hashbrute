@@ -92,9 +92,9 @@ try:
     with open(file_wordlist, 'r', encoding='latin-1') as f:
         seluruh_password = f.readlines()
         jumlah_seluruh_password = len(seluruh_password)
-        print(f"\n{w}[{y}*{w}] Menghitung jumlah password '{file_wordlist}{p}'")
+        print(f"\n{w}[{y}*{w}] Menghitung jumlah password {file_wordlist}{p}")
         time.sleep(3)
-        print(f"\r{w}[{g}+{w}] Jumlah password '{file_wordlist}': '{jumlah_seluruh_password}'{p}")
+        print(f"\r{w}[{g}+{w}] Jumlah password {file_wordlist}: {jumlah_seluruh_password}{p}")
         time.sleep(3)
 
     print()
@@ -114,10 +114,10 @@ try:
             # Menghentikan animasi
             stop_animation_thread()
             print(f"\n\n{c}==========================================================={p}")
-            print(f"{w}[{g}+{w}] Password ditemukan: '{password}'{p}")
-            print(f"{w}[{g}+{w}] Jenis hash: '{algoritma}'{p}")
-            print(f"{w}[{g}+{w}] Hash target: '{hash_target}'{p}")
-            print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
+            print(f"{w}[{g}+{w}] Password ditemukan: {password}{p}")
+            print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
+            print(f"{w}[{g}+{w}] Hash target: {hash_target}{p}")
+            print(f"{w}[{g}+{p}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
 
@@ -126,9 +126,9 @@ try:
         stop_animation_thread()
         print(f"\n\n{c}==========================================================={p}")
         print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
-        print(f"{w}[{r}-{w}] Jenis hash: '{algoritma}'{p}")
-        print(f"{w}[{r}-{w}] Hash target: '{hash_target}'{p}")
-        print(f"{w}[{r}-{w}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
+        print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
+        print(f"{w}[{r}-{w}] Hash target: {hash_target}'{p}")
+        print(f"{w}[{r}-{w}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
         print(f"{c}-----------------------------------------------------------{p}")
 
 except FileNotFoundError:
