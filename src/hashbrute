@@ -70,7 +70,7 @@ print(f"[{r}K{w}] Keluar")
 
 pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'K' untuk keluar: ").strip()
 
-if pilihan.upper() == 'Q':
+if pilihan.upper() == 'K':
     print(f"\n[{g}+{w}] Keluar dari program.")
     sys.exit(0)
 
