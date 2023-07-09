@@ -43,7 +43,10 @@ def stop_animation_thread():
     time.sleep(0)
     stop_animation = True
 
-os.system("clear")
+if os.name == "nt":
+    os.system("cls")
+else:
+    os.system("clear")
 
 print(f"""{c}
 {y}     .-.      _______
