@@ -4,7 +4,6 @@ import hashlib
 import sys
 import time
 import threading
-import itertools
 from colorama import Fore
 
 # Kode warna
@@ -24,21 +23,21 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animation_delay = 0.5
+animation_delay = 0
 stop_animation = False
 
 def animate(hash_target, password):
     while not stop_animation:
-        for c in itertools.cycle(['|', '/', '-', '\\']):
+        for c in range(3):
             if stop_animation:
                 break
-            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} - {password} {c}")
+            sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi Hash: {hash_target} - {password}{'.' * (c+1)}")
             sys.stdout.flush()
             time.sleep(animation_delay)
 
 def stop_animation_thread():
     global stop_animation
-    time.sleep(2)
+    time.sleep(0)
     stop_animation = True
 
 print(f"""{c}
