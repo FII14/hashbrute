@@ -57,7 +57,7 @@ print(f"""{c}
 {p}""")
 
 print(f"{g}Algoritma hash yang didukung{w}:")
-print("==========================")
+print("=============================")
 for i, (algoritma, _) in algoritma_hash.items():
     print(f"[{y}{i}{w}] {algoritma}")
 print(f"[{r}Q{w}] Keluar")
@@ -107,7 +107,7 @@ try:
             password_ditemukan = True
             # Menghentikan animasi
             stop_animation_thread()
-            print(f"\n{c}==========================================================={p}")
+            print(f"\n\n{c}==========================================================={p}")
             print(f"{w}[{g}+{w}] Password ditemukan: '{password}'{p}")
             print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
             print(f"{w}[{g}+{w}] Hash target: {hash_target}{p}")
