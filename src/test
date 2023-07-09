@@ -3,6 +3,8 @@
 import hashlib
 import sys
 import time
+import threading
+import itertools
 from colorama import Fore
 
 # Kode warna
@@ -22,11 +24,22 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-def truncate_string(string, max_length):
-    if len(string) <= max_length:
-        return string
-    else:
-        return string[:max_length] + "..."
+animation_delay = 0.1
+stop_animation = False
+
+def animate(hash_target, password):
+    while not stop_animation:
+        for c in itertools.cycle(['|', '/', '-', '\\']):
+            if stop_animation:
+                break
+            sys.stdout.write(f"\rSedang memecahkan password hash: {hash_target} - Password: {password} {c}")
+            sys.stdout.flush()
+            time.sleep(animation_delay)
+
+def stop_animation_thread():
+    global stop_animation
+    time.sleep(2)
+    stop_animation = True
 
 print(f"""{c}
 {y}     .-.      _______
@@ -81,23 +94,36 @@ try:
     password_ditemukan = False
     jumlah_password_dicoba = 0
 
+    # Memulai animasi
+    animation_thread = threading.Thread(target=animate, args=(hash_target, ''))
+    animation_thread.start()
+
     for password in seluruh_password:
         jumlah_password_dicoba += 1
         password = password.strip()
         password_hash = fungsi_hash(password.encode()).hexdigest()
         if password_hash == hash_target:
             password_ditemukan = True
+            # Menghentikan animasi
+            stop_animation_thread()
+            sys.stdout.write("\r" + " " * 100)
+            sys.stdout.flush()
             print(f"\r{c}==========================================================={p}")
             print(f"[{g}+{w}] Password ditemukan: '{password}'")
             print(f"{w}[{g}+{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
             print(f"{c}-----------------------------------------------------------{p}")
             break
         else:
-            truncated_password = truncate_string(password, 30)
-            print(f"\r[{r}-{w}] Sedang memecahkan password hash: {hash_target} - Password: {truncated_password}", end='')
-            sys.stdout.flush()
+            # Update password yang sedang dicoba dalam animasi
+            truncated_password = password[:30] + "..." if len(password) > 30 else password
+            animation_thread = threading.Thread(target=animate, args=(hash_target, truncated_password))
+            animation_thread.start()
 
+    # Jika password tidak ditemukan, hentikan animasi
     if not password_ditemukan:
+        stop_animation_thread()
+        sys.stdout.write("\r" + " " * 100)
+        sys.stdout.flush()
         print(f"\r{c}==========================================================={p}")
         print(f"[{r}-{w}] Password tidak ditemukan dalam wordlist.")
         print(f"{w}[{r}-{p}] Jumlah password yang dicoba: '{jumlah_password_dicoba}'{p}")
