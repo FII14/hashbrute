@@ -117,9 +117,9 @@ def pemecah_hash_password():
         with open(file_wordlist, 'r', encoding='latin-1', errors='ignore') as f:
             seluruh_password = f.readlines()
             jumlah_seluruh_password = len(seluruh_password)
-            print(f"\n{w}[{y}*{w}] Menghitung jumlah password {file_wordlist}{p}")
+            print(f"\n{w}[{y}*{w}] Menghitung jumlah password wordlist {file_wordlist}{p}")
             time.sleep(3)
-            print(f"\r{w}[{g}+{w}] Jumlah password {file_wordlist}: {jumlah_seluruh_password}{p}")
+            print(f"\r{w}[{g}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
             time.sleep(3)
 
         print()
