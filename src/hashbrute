@@ -110,7 +110,7 @@ def pemecah_hash_password():
         sys.exit(1)
 
     if not check_hash(hash_target, algoritma):
-        print(f"\n[{r}-{w}] Hash target tidak sesuai dengan jenis hash yang dipilih.")
+        print(f"\n[{r}-{w}] Hash tidak valid.")
         sys.exit(1)
 
     file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
