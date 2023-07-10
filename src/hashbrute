@@ -49,6 +49,18 @@ def stop_animation_thread():
     time.sleep(0)
     stop_animation = True
 
+def check_hash(hash_target, algoritma):
+    hash_length = len(hash_target)
+    if algoritma == "md5" and hash_length != 32:
+        return False
+    elif algoritma == "sha1" and hash_length != 40:
+        return False
+    elif algoritma == "sha256" and hash_length != 64:
+        return False
+    elif algoritma == "sha512" and hash_length != 128:
+        return False
+    return True
+
 def pemecah_hash_password():
     """
     Fungsi utama untuk memecahkan kata sandi hash.
@@ -93,6 +105,10 @@ def pemecah_hash_password():
     hash_target = input(f"[{b}#{w}] Masukkan hash target: ").strip()
     if len(hash_target) == 0:
         print(f"\n[{r}-{w}] Hash tidak valid.")
+        sys.exit(1)
+
+    if not check_hash(hash_target, algoritma):
+        print(f"\n[{r}-{w}] Hash target tidak sesuai dengan jenis hash yang dipilih.")
         sys.exit(1)
 
     file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
