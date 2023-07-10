@@ -105,9 +105,6 @@ def pemecah_hash_password():
         sys.exit(1)
 
     hash_target = input(f"[{b}#{w}] Masukkan hash target: ").strip()
-    if len(hash_target) == 0:
-        print(f"\n[{r}-{w}] Hash tidak valid.")
-        sys.exit(1)
 
     if not check_hash(hash_target, algoritma):
         print(f"\n[{r}-{w}] Hash tidak valid.")
