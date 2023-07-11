@@ -38,7 +38,7 @@ def animate(hash_target):
     symbol_index = 0
     while not stop_animation:
         symbol = symbols[symbol_index]
-        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan kata sandi hash {symbol}{p}")
+        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan hash password {symbol}{p}")
         sys.stdout.flush()
         symbol_index = (symbol_index + 1) % len(symbols)
         time.sleep(animation_delay)
@@ -65,7 +65,7 @@ def check_hash(hash_target, algoritma):
 
 def pemecah_hash_password():
     """
-    Fungsi utama untuk memecahkan password hash.
+    Fungsi utama untuk memecahkan hash password.
     """
     if os.name == "nt":
         os.system("cls")
