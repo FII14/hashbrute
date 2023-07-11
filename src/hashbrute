@@ -29,7 +29,7 @@ stop_animation = False
 
 def animate(hash_target):
     """
-    Fungsi untuk menampilkan animasi saat memecahkan kata sandi hash.
+    Fungsi untuk menampilkan animasi saat memecahkan password hash.
 
     Args:
         hash_target (str): Hash target yang akan dipecahkan.
@@ -65,7 +65,7 @@ def check_hash(hash_target, algoritma):
 
 def pemecah_hash_password():
     """
-    Fungsi utama untuk memecahkan kata sandi hash.
+    Fungsi utama untuk memecahkan password hash.
     """
     if os.name == "nt":
         os.system("cls")
