@@ -29,7 +29,7 @@ stop_animation = False
 
 def animate(hash_target):
     """
-    Fungsi untuk menampilkan animasi saat memecahkan password hash.
+    Fungsi untuk menampilkan animasi saat memecahkan hash password.
 
     Args:
         hash_target (str): Hash target yang akan dipecahkan.
