@@ -104,10 +104,10 @@ def pemecah_hash_password():
         print(f"\n[{r}-{w}] Masukan tidak valid.")
         sys.exit(1)
 
-    hash_target = input(f"[{b}#{w}] Masukkan hash target: ").strip()
+    hash_target = input(f"[{b}#{w}] Masukkan hash password: ").strip()
 
     if not check_hash(hash_target, algoritma):
-        print(f"\n[{r}-{w}] Hash tidak valid.")
+        print(f"\n[{r}-{w}] Hash password tidak valid.")
         sys.exit(1)
 
     file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
@@ -141,7 +141,7 @@ def pemecah_hash_password():
                 print(f"\n\n{c}==========================================================={p}")
                 print(f"{w}[{g}+{w}] Password ditemukan: {password}{p}")
                 print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
-                print(f"{w}[{g}+{w}] Hash target: {hash_target}{p}")
+                print(f"{w}[{g}+{w}] Hash password: {hash_target}{p}")
                 print(f"{w}[{g}+{p}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
                 print(f"{c}-----------------------------------------------------------{p}")
                 break
@@ -152,7 +152,7 @@ def pemecah_hash_password():
             print(f"\n\n{c}==========================================================={p}")
             print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
             print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
-            print(f"{w}[{r}-{w}] Hash target: {hash_target}{p}")
+            print(f"{w}[{r}-{w}] Hash password: {hash_target}{p}")
             print(f"{w}[{r}-{w}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
             print(f"{c}-----------------------------------------------------------{p}")
 
