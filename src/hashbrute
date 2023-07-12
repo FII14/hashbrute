@@ -157,11 +157,16 @@ def pemecah_hash_password():
             print(f"{c}-----------------------------------------------------------{p}")
 
     except FileNotFoundError:
-        print(f"\n[{r}-{w}] File wordlist tidak ditemukan.")
+        print(f"\n{w}[{r}-{w}] File wordlist tidak ditemukan.")
         sys.exit(1)
     except IOError:
-        print(f"\n[{r}-{w}] Kesalahan saat membaca file wordlist.")
+        print(f"\n{w}[{r}-{w}] Kesalahan saat membaca file wordlist.")
         sys.exit(1)
 
-# Memanggil fungsi utama
-pemecah_hash_password()
+try:
+    # Memanggil fungsi utama
+    pemecah_hash_password()
+except KeyboardInterrupt:
+    print(f"\n\n{w}[{r}-{w}] Keluar dari program {p}")
+    stop_animation_thread()
+    sys.exit(0)
