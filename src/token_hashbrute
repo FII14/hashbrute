@@ -12,7 +12,7 @@ def login():
             print("Token tidak valid. Silakan coba lagi.")
 
 def verify_token(token):
-    token_valid = "5825a233e433be57f553b127ee3ee498"
+    token_valid = "7ab2566e97172e61115282374329351b"
     token_encrypted = hashlib.md5(token.encode()).hexdigest()
 
     return token_encrypted == token_valid
