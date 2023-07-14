@@ -22,6 +22,7 @@ if [[ $(uname -o) == "Android" ]]; then
     pkg install python3
     pip3 install -r persyaratan.txt
     mv src/hashbrute /data/data/com.termux/files/usr/bin
+    mv src/token.py /data/data/com.termux/files/usr/bin 
     echo -e "${g}[•] ${r}Instalasi selesai."
     echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
     exit 0
@@ -32,6 +33,7 @@ elif [[ $(uname -o) == "GNU/Linux" ]]; then
     sudo apt-get install python3-pip
     pip3 install -r persyaratan.txt 
     mv src/hashbrute /usr/bin
+    mv src/token.py /usr/bin
     echo -e "${g}[•] ${r}Instalasi selesai."
     echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
     exit 0
