@@ -45,6 +45,7 @@ if [[ $(uname -o) == "Android" ]]; then
     
     direktori="/data/data/com.termux/files/usr/share/wordlists"
     if [[ -d "${direktori}" ]]; then
+        cd "${direktori}"
         rockyou
     else
         cd "/data/data/com.termux/files/usr/share/"
