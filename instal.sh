@@ -28,6 +28,7 @@ rockyou(){
         wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
         gzip -d "rockyou.txt.gz"
         pesan
+    fi
 }
 
 # Android (Termux)
