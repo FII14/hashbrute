@@ -47,7 +47,8 @@ if [[ $(uname -o) == "Android" ]]; then
     if [[ -d "${direktori}" ]]; then
         rockyou
     else
-        mkdir "/data/data/com.termux/files/usr/share/wordlists"
+        cd "/data/data/com.termux/files/usr/share/"
+        mkdir "wordlists"
         cd "wordlists"
         rockyou
     fi
