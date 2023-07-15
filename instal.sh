@@ -20,21 +20,38 @@ chmod +x src/hashbrute
 if [[ $(uname -o) == "Android" ]]; then
     pkg update
     pkg install python3
+    pkg install wget
     pip3 install -r persyaratan.txt
     mv src/hashbrute /data/data/com.termux/files/usr/bin
+
+    pesan(){
+        echo -e "${g}[•] ${r}Instalasi selesai."
+        echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
+        exit 0
+    }
+
+    rockyou(){
+        if [[ -f "rockyou.txt.gz" ]]; then
+            gzip -d "rockyou.txt.gz"
+            pesan
+        elif [[ -f "rockyou.txt" ]]; then
+            pesan
+        else
+            wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
+            gzip -d "rockyou.txt.gz"
+            pesan
+        fi
+    }
+    
     direktori="/data/data/com.termux/files/usr/share/wordlists"
     if [[ -d "${direktori}" ]]; then
-        echo "ok"
+        rockyou
     else
         cd "/data/data/com.termux/files/usr/share"
         mkdir "wordlists"
+        rockyou
     fi
         
-        
-    echo -e "${g}[•] ${r}Instalasi selesai."
-    echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
-    exit 0
-
 # Linux Ubuntu dan Debian beserta keturunannya
 elif [[ $(uname -o) == "GNU/Linux" ]]; then
     sudo apt-get update 
