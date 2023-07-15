@@ -1,6 +1,6 @@
 #!/bin/bash
-# @ Script  : Instal hashbrute
-# @ Pembuat : Rofi
+# Script: Instal hashbrute
+# Pembuat: Rofi
 
 g="\e[1;32m"
 r="\e[0m"
@@ -12,7 +12,7 @@ echo -e "${c} ___ _   _ ____ _____  _    _     "
 echo -e "${c}|_ _| \ | / ___|_   _|/ \  | |    "
 echo -e "${c} | ||  \| \___ \ | | / _ \ | |    "
 echo -e "${c} | || |\  |___) || |/ ___ \| |___ "
-echo -e "${c}|___|_| \_|____/ |_/_/   \_\_____|"                                         
+echo -e "${c}|___|_| \_|____/ |_/_/   \_\_____|"
 echo -e "${r}"
 
 pesan(){
