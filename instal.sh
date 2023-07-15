@@ -14,80 +14,58 @@ echo -e "${c} | ||  \| \___ \ | | / _ \ | |    "
 echo -e "${c} | || |\  |___) || |/ ___ \| |___ "
 echo -e "${c}|___|_| \_|____/ |_/_/   \_\_____|"                                         
 echo -e "${r}"
-chmod +x src/hashbrute
+
+pesan(){
+    echo -e "${g}[•] ${r}Instalasi selesai."
+    echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
+}
+
+# Fungsi untuk memeriksa keberadaan dan unduh rockyou.txt.gz jika diperlukan
+rockyou(){
+    if [[ -f "rockyou.txt" ]]; then
+        pesan 
+    else
+        wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
+        gzip -d "rockyou.txt.gz"
+        pesan
+}
 
 # Android (Termux)
 if [[ $(uname -o) == "Android" ]]; then
     pkg update
-    pkg install python3
+    pkg install python
     pkg install wget
-    pip3 install -r persyaratan.txt
+    pip install -r persyaratan.txt
     mv src/hashbrute /data/data/com.termux/files/usr/bin
 
-    pesan(){
-        echo -e "${g}[•] ${r}Instalasi selesai."
-        echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
-        exit 0
-    }
-
-    rockyou(){
-        if [[ -f "rockyou.txt.gz" ]]; then
-            gzip -d "rockyou.txt.gz"
-            pesan
-        elif [[ -f "rockyou.txt" ]]; then
-            pesan
-        else
-            wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
-            gzip -d "rockyou.txt.gz"
-            pesan
-        fi
-    }
-    
+    # Pindah ke direktori wordlists atau buat direktori jika belum ada
     direktori="/data/data/com.termux/files/usr/share/wordlists"
     if [[ -d "${direktori}" ]]; then
         cd "${direktori}"
-        rockyou
     else
-        cd "/data/data/com.termux/files/usr/share/"
-        mkdir "wordlists"
-        cd "wordlists"
-        rockyou
+        mkdir -p "${direktori}"
+        cd "${direktori}"
     fi
+
+    rockyou
         
 # Linux Ubuntu dan Debian beserta keturunannya
 elif [[ $(uname -o) == "GNU/Linux" ]]; then
     sudo apt-get update 
+    sudo apt-get install python3
     sudo apt-get install python3-pip
     pip3 install -r persyaratan.txt 
     mv src/hashbrute /usr/bin
-    
-    pesan(){
-        echo -e "${g}[•] ${r}Instalasi selesai."
-        echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
-        exit 0
-    }
 
-    rockyou(){
-        if [[ -f "rockyou.txt.gz" ]]; then
-            gzip -d "rockyou.txt.gz"
-            pesan
-        elif [[ -f "rockyou.txt" ]]; then
-            pesan
-        else
-            wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
-            gzip -d "rockyou.txt.gz"
-            pesan
-        fi
-    }
-    
-    direktori="/data/data/com.termux/files/usr/share/wordlists"
+    # Pindah ke direktori wordlists atau buat direktori jika belum ada
+    direktori="/usr/share/wordlists"
     if [[ -d "${direktori}" ]]; then
         cd "${direktori}"
-        rockyou
     else
-        cd "/data/data/com.termux/files/usr/share/"
-        mkdir "wordlists"
-        cd "wordlists"
-        rockyou
+        sudo mkdir -p "${direktori}"
+        sudo chown -R $USER:$USER "${direktori}"
+        cd "${direktori}"
     fi
+
+    rockyou
 fi
