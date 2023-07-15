@@ -14,7 +14,7 @@ algoritma_hash = {
     "4": ("sha512", hashlib.sha512)
 }
 
-animasi_delay = 0
+animasi_delay = 1
 hentikan_animasi = False
 
 def animasi(hash_target):
