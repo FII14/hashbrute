@@ -22,6 +22,15 @@ if [[ $(uname -o) == "Android" ]]; then
     pkg install python3
     pip3 install -r persyaratan.txt
     mv src/hashbrute /data/data/com.termux/files/usr/bin
+    direktori="/data/data/com.termux/files/usr/share/wordlists"
+    if [[ -d "${direktori}" ]]; then
+        echo "ok"
+    else
+        cd "/data/data/com.termux/files/usr/share"
+        mkdir "wordlists"
+    fi
+        
+        
     echo -e "${g}[•] ${r}Instalasi selesai."
     echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
     exit 0
