@@ -60,7 +60,34 @@ elif [[ $(uname -o) == "GNU/Linux" ]]; then
     sudo apt-get install python3-pip
     pip3 install -r persyaratan.txt 
     mv src/hashbrute /usr/bin
-    echo -e "${g}[•] ${r}Instalasi selesai."
-    echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
-    exit 0
+    
+    pesan(){
+        echo -e "${g}[•] ${r}Instalasi selesai."
+        echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
+        exit 0
+    }
+
+    rockyou(){
+        if [[ -f "rockyou.txt.gz" ]]; then
+            gzip -d "rockyou.txt.gz"
+            pesan
+        elif [[ -f "rockyou.txt" ]]; then
+            pesan
+        else
+            wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
+            gzip -d "rockyou.txt.gz"
+            pesan
+        fi
+    }
+    
+    direktori="/data/data/com.termux/files/usr/share/wordlists"
+    if [[ -d "${direktori}" ]]; then
+        cd "${direktori}"
+        rockyou
+    else
+        cd "/data/data/com.termux/files/usr/share/"
+        mkdir "wordlists"
+        cd "wordlists"
+        rockyou
+    fi
 fi
