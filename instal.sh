@@ -49,6 +49,7 @@ if [[ $(uname -o) == "Android" ]]; then
     else
         cd "/data/data/com.termux/files/usr/share"
         mkdir "wordlists"
+        cd wordlists
         rockyou
     fi
         
