@@ -95,7 +95,7 @@ def password_cracker():
         with open(wordlist_file, 'r', encoding='latin-1', errors='ignore') as f:
             all_passwords = f.readlines()
             total_passwords = len(all_passwords)
-            print(f"[*] Counting the number of passwords in the wordlist file {wordlist_file}")
+            print(f"\n[*] Counting the number of passwords in the wordlist file {wordlist_file}")
             time.sleep(3)
             print(f"\r[+] Total passwords in {wordlist_file}: {total_passwords}")
             time.sleep(3)
