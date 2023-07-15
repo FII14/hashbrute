@@ -8,8 +8,6 @@ import time
 import threading
 from colorama import Fore
 
-os.system("./token_hashbrue")
-
 # Kode warna
 r = Fore.LIGHTRED_EX
 g = Fore.LIGHTGREEN_EX
