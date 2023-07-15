@@ -68,11 +68,11 @@ def password_cracker():
     print("=============================")
     for i, (algorithm, _) in algoritma_hash.items():
         print(f"[{i}] {algorithm}")
-    print("[K] Exit")
+    print("[E] Exit")
 
-    choice = input("\n[#] Enter the hash algorithm number (1-4) or 'K' to exit: ").strip()
+    choice = input("\n[#] Enter the hash algorithm number (1-4) or 'E' to exit: ").strip()
 
-    if choice.upper() == 'K':
+    if choice.upper() == 'E':
         print("\n[+] Exiting the program.")
         sys.exit(0)
 
