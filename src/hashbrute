@@ -1,7 +1,173 @@
 #!/usr/bin/env python
-#-------------------------------------------------
-# Compiled by FII14
-#-------------------------------------------------
 
-import base64, zlib, marshal
-exec(marshal.loads(zlib.decompress(base64.b64decode(b'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'))))
+import hashlib
+import os
+import sys
+import time
+import threading
+from colorama import Fore
+
+# Kode warna
+r = Fore.LIGHTRED_EX
+g = Fore.LIGHTGREEN_EX
+c = Fore.LIGHTCYAN_EX
+p = Fore.RESET
+w = Fore.LIGHTWHITE_EX
+y = Fore.LIGHTYELLOW_EX
+b = Fore.LIGHTBLUE_EX
+
+# Algoritma hash yang didukung
+algoritma_hash = {
+    "1": ("md5", hashlib.md5),
+    "2": ("sha1", hashlib.sha1),
+    "3": ("sha256", hashlib.sha256),
+    "4": ("sha512", hashlib.sha512)
+}
+
+animation_delay = 0
+stop_animation = False
+
+def animate(hash_target):
+    """
+    Fungsi untuk menampilkan animasi saat memecahkan hash password.
+
+    Args:
+        hash_target (str): Hash target yang akan dipecahkan.
+    """
+    symbols = ['|', '/', '-', '\\']
+    symbol_index = 0
+    while not stop_animation:
+        symbol = symbols[symbol_index]
+        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan hash password {symbol}{p}")
+        sys.stdout.flush()
+        symbol_index = (symbol_index + 1) % len(symbols)
+        time.sleep(animation_delay)
+
+def stop_animation_thread():
+    """
+    Fungsi untuk menghentikan animasi.
+    """
+    global stop_animation
+    time.sleep(0)
+    stop_animation = True
+
+def check_hash(hash_target, algoritma):
+    hash_length = len(hash_target)
+    if algoritma == "md5" and hash_length != 32:
+        return False
+    elif algoritma == "sha1" and hash_length != 40:
+        return False
+    elif algoritma == "sha256" and hash_length != 64:
+        return False
+    elif algoritma == "sha512" and hash_length != 128:
+        return False
+    return True
+
+def pemecah_hash_password():
+    """
+    Fungsi utama untuk memecahkan hash password.
+    """
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+    print(f"""{c}
+{y}     .-.      _______
+{y}    ()``; |==|_______D   {r}'a63e07a8a2c9df821b398df3ce7609da'
+{y}    / ('      [--|--]
+{y}(  /  |       |  |  |
+{y} \\(_)_]]      |  |  |
+{c}-----------------------------------------------------------
+{w}
+{w}                   Pemecah Hash Password
+{w}                     Dibuat oleh FII14
+{w}             https://github.com/FII14/hashbrute
+{w}
+{c}==========================================================={p}
+{p}""")
+
+    print(f"{g}Algoritma hash yang didukung{w}:")
+    print("=============================")
+    for i, (algoritma, _) in algoritma_hash.items():
+        print(f"[{y}{i}{w}] {algoritma}")
+    print(f"[{r}K{w}] Keluar")
+
+    pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'K' untuk keluar: ").strip()
+
+    if pilihan.upper() == 'K':
+        print(f"\n[{g}+{w}] Keluar dari program.")
+        sys.exit(0)
+
+    try:
+        algoritma, fungsi_hash = algoritma_hash[pilihan]
+    except KeyError:
+        print(f"\n[{r}-{w}] Masukan tidak valid.")
+        sys.exit(1)
+
+    hash_target = input(f"[{b}#{w}] Masukkan hash password: ").strip()
+
+    if not check_hash(hash_target, algoritma):
+        print(f"\n[{r}-{w}] Hash password tidak valid.")
+        sys.exit(1)
+
+    file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
+
+    try:
+        jumlah_seluruh_password = 0
+        with open(file_wordlist, 'r', encoding='latin-1', errors='ignore') as f:
+            seluruh_password = f.readlines()
+            jumlah_seluruh_password = len(seluruh_password)
+            print(f"\n{w}[{y}*{w}] Menghitung jumlah password wordlist {file_wordlist}{p}")
+            time.sleep(3)
+            print(f"\r{w}[{g}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
+            time.sleep(3)
+
+        print()
+        password_ditemukan = False
+        jumlah_password_dicoba = 0
+
+        # Memulai animasi
+        animation_thread = threading.Thread(target=animate, args=(hash_target,))
+        animation_thread.start()
+
+        for password in seluruh_password:
+            jumlah_password_dicoba += 1
+            password = password.strip()
+            password_hash = fungsi_hash(password.encode('utf-8')).hexdigest()
+            if password_hash == hash_target:
+                password_ditemukan = True
+                # Menghentikan animasi
+                stop_animation_thread()
+                print(f"\n\n{c}==========================================================={p}")
+                print(f"{w}[{g}+{w}] Password ditemukan: {password}{p}")
+                print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
+                print(f"{w}[{g}+{w}] Hash password: {hash_target}{p}")
+                print(f"{w}[{g}+{p}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
+                print(f"{c}-----------------------------------------------------------{p}")
+                break
+
+        # Jika password tidak ditemukan, hentikan animasi
+        if not password_ditemukan:
+            stop_animation_thread()
+            print(f"\n\n{c}==========================================================={p}")
+            print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
+            print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
+            print(f"{w}[{r}-{w}] Hash password: {hash_target}{p}")
+            print(f"{w}[{r}-{w}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
+            print(f"{c}-----------------------------------------------------------{p}")
+
+    except FileNotFoundError:
+        print(f"\n{w}[{r}-{w}] File wordlist tidak ditemukan.")
+        sys.exit(1)
+    except IOError:
+        print(f"\n{w}[{r}-{w}] Kesalahan saat membaca file wordlist.")
+        sys.exit(1)
+
+try:
+    # Memanggil fungsi utama
+    pemecah_hash_password()
+except KeyboardInterrupt:
+    print(f"\n\n{w}[{r}-{w}] Keluar dari program {p}")
+    stop_animation_thread()
+    sys.exit(0)
