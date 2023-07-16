@@ -8,13 +8,13 @@ import threading
 from colorama import Fore
 
 # Kode warna
-r = Fore.LIGHTRED_EX
-g = Fore.LIGHTGREEN_EX
-c = Fore.LIGHTCYAN_EX
-p = Fore.RESET
-w = Fore.LIGHTWHITE_EX
-y = Fore.LIGHTYELLOW_EX
-b = Fore.LIGHTBLUE_EX
+m = Fore.LIGHTRED_EX   # merah
+h = Fore.LIGHTGREEN_EX # hijau
+c = Fore.LIGHTCYAN_EX  # cyan
+p = Fore.RESET         # putih
+w = Fore.LIGHTWHITE_EX # putih terang
+k = Fore.LIGHTYELLOW_EX # kuning
+b = Fore.LIGHTBLUE_EX  # biru
 
 # Algoritma hash yang didukung
 algoritma_hash = {
@@ -27,23 +27,23 @@ algoritma_hash = {
 animation_delay = 0
 stop_animation = False
 
-def animate(hash_target):
+def animasi(hash_target):
     """
     Fungsi untuk menampilkan animasi saat memecahkan hash password.
 
     Args:
         hash_target (str): Hash target yang akan dipecahkan.
     """
-    symbols = ['|', '/', '-', '\\']
-    symbol_index = 0
+    simbol = ['|', '/', '-', '\\']
+    indeks_simbol = 0
     while not stop_animation:
-        symbol = symbols[symbol_index]
-        sys.stdout.write(f"\r{w}[{y}*{w}] Sedang memecahkan hash password {symbol}{p}")
+        simbol_sekarang = simbol[indeks_simbol]
+        sys.stdout.write(f"\r{w}[{k}*{w}] Sedang memecahkan hash password {simbol_sekarang}{p}")
         sys.stdout.flush()
-        symbol_index = (symbol_index + 1) % len(symbols)
+        indeks_simbol = (indeks_simbol + 1) % len(simbol)
         time.sleep(animation_delay)
 
-def stop_animation_thread():
+def hentikan_animasi():
     """
     Fungsi untuk menghentikan animasi.
     """
@@ -51,15 +51,15 @@ def stop_animation_thread():
     time.sleep(0)
     stop_animation = True
 
-def check_hash(hash_target, algoritma):
-    hash_length = len(hash_target)
-    if algoritma == "md5" and hash_length != 32:
+def cek_hash(hash_target, algoritma):
+    hash_panjang = len(hash_target)
+    if algoritma == "md5" and hash_panjang != 32:
         return False
-    elif algoritma == "sha1" and hash_length != 40:
+    elif algoritma == "sha1" and hash_panjang != 40:
         return False
-    elif algoritma == "sha256" and hash_length != 64:
+    elif algoritma == "sha256" and hash_panjang != 64:
         return False
-    elif algoritma == "sha512" and hash_length != 128:
+    elif algoritma == "sha512" and hash_panjang != 128:
         return False
     return True
 
@@ -73,11 +73,11 @@ def pemecah_hash_password():
         os.system("clear")
 
     print(f"""{c}
-{y}     .-.      _______
-{y}    ()``; |==|_______D   {r}'a63e07a8a2c9df821b398df3ce7609da'
-{y}    / ('      [--|--]
-{y}(  /  |       |  |  |
-{y} \\(_)_]]      |  |  |
+{b}     .-.      _______
+{b}    ()``; |==|_______D   {m}'a63e07a8a2c9df821b398df3ce7609da'
+{b}    / ('      [--|--]
+{b}(  /  |       |  |  |
+{b} \\(_)_]]      |  |  |
 {c}-----------------------------------------------------------
 {w}
 {w}                   Pemecah Hash Password
@@ -87,28 +87,28 @@ def pemecah_hash_password():
 {c}==========================================================={p}
 {p}""")
 
-    print(f"{g}Algoritma hash yang didukung{w}:")
+    print(f"{h}Algoritma hash yang didukung{w}:")
     print("=============================")
     for i, (algoritma, _) in algoritma_hash.items():
-        print(f"[{y}{i}{w}] {algoritma}")
-    print(f"[{r}K{w}] Keluar")
+        print(f"[{k}{i}{w}] {algoritma}")
+    print(f"[{m}K{w}] Keluar")
 
     pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'K' untuk keluar: ").strip()
 
     if pilihan.upper() == 'K':
-        print(f"\n[{g}+{w}] Keluar dari program.")
+        print(f"\n[{h}+{w}] Keluar dari program.")
         sys.exit(0)
 
     try:
         algoritma, fungsi_hash = algoritma_hash[pilihan]
     except KeyError:
-        print(f"\n[{r}-{w}] Masukan tidak valid.")
+        print(f"\n[{m}-{w}] Masukan tidak valid.")
         sys.exit(1)
 
     hash_target = input(f"[{b}#{w}] Masukkan hash password: ").strip()
 
-    if not check_hash(hash_target, algoritma):
-        print(f"\n[{r}-{w}] Hash password tidak valid.")
+    if not cek_hash(hash_target, algoritma):
+        print(f"\n[{m}-{w}] Hash password tidak valid.")
         sys.exit(1)
 
     file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
@@ -118,9 +118,9 @@ def pemecah_hash_password():
         with open(file_wordlist, 'r', encoding='latin-1', errors='ignore') as f:
             seluruh_password = f.readlines()
             jumlah_seluruh_password = len(seluruh_password)
-            print(f"\n{w}[{y}*{w}] Menghitung jumlah password wordlist {file_wordlist}{p}")
+            print(f"\n{w}[{k}*{w}] Menghitung jumlah password wordlist {file_wordlist}{p}")
             time.sleep(3)
-            print(f"\r{w}[{g}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
+            print(f"\r{w}[{h}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
             time.sleep(3)
 
         print()
@@ -128,8 +128,8 @@ def pemecah_hash_password():
         jumlah_password_dicoba = 0
 
         # Memulai animasi
-        animation_thread = threading.Thread(target=animate, args=(hash_target,))
-        animation_thread.start()
+        thread_animasi = threading.Thread(target=animasi, args=(hash_target,))
+        thread_animasi.start()
 
         for password in seluruh_password:
             jumlah_password_dicoba += 1
@@ -138,36 +138,36 @@ def pemecah_hash_password():
             if password_hash == hash_target:
                 password_ditemukan = True
                 # Menghentikan animasi
-                stop_animation_thread()
+                hentikan_animasi()
                 print(f"\n\n{c}==========================================================={p}")
-                print(f"{w}[{g}+{w}] Password ditemukan: {password}{p}")
-                print(f"{w}[{g}+{w}] Jenis hash: {algoritma}{p}")
-                print(f"{w}[{g}+{w}] Hash password: {hash_target}{p}")
-                print(f"{w}[{g}+{p}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
+                print(f"{w}[{h}+{w}] Password ditemukan: {password}{p}")
+                print(f"{w}[{h}+{w}] Jenis hash: {algoritma}{p}")
+                print(f"{w}[{h}+{w}] Hash password: {hash_target}{p}")
+                print(f"{w}[{h}+{p}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
                 print(f"{c}-----------------------------------------------------------{p}")
                 break
 
         # Jika password tidak ditemukan, hentikan animasi
         if not password_ditemukan:
-            stop_animation_thread()
+            hentikan_animasi()
             print(f"\n\n{c}==========================================================={p}")
-            print(f"{w}[{r}-{w}] Password tidak ditemukan dalam wordlist.{p}")
-            print(f"{w}[{r}-{w}] Jenis hash: {algoritma}{p}")
-            print(f"{w}[{r}-{w}] Hash password: {hash_target}{p}")
-            print(f"{w}[{r}-{w}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
+            print(f"{w}[{m}-{w}] Password tidak ditemukan dalam wordlist.{p}")
+            print(f"{w}[{m}-{w}] Jenis hash: {algoritma}{p}")
+            print(f"{w}[{m}-{w}] Hash password: {hash_target}{p}")
+            print(f"{w}[{m}-{w}] Jumlah password yang dicoba: {jumlah_password_dicoba}{p}")
             print(f"{c}-----------------------------------------------------------{p}")
 
     except FileNotFoundError:
-        print(f"\n{w}[{r}-{w}] File wordlist tidak ditemukan.")
+        print(f"\n{w}[{m}-{w}] File wordlist tidak ditemukan.")
         sys.exit(1)
     except IOError:
-        print(f"\n{w}[{r}-{w}] Kesalahan saat membaca file wordlist.")
+        print(f"\n{w}[{m}-{w}] Kesalahan saat membaca file wordlist.")
         sys.exit(1)
 
 try:
     # Memanggil fungsi utama
     pemecah_hash_password()
 except KeyboardInterrupt:
-    print(f"\n\n{w}[{r}-{w}] Keluar dari program {p}")
-    stop_animation_thread()
+    print(f"\n\n{w}[{m}-{w}] Keluar dari program {p}")
+    hentikan_animasi()
     sys.exit(0)
