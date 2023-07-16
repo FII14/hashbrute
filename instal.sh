@@ -34,6 +34,8 @@ if [[ $(uname -o) == "Android" ]]; then
         if [[ -f "rockyou.txt.gz" ]]; then
             gzip -d "rockyou.txt.gz"
             pesan
+        elif [[ -f "rockyou.txt.gx" && -f "rockyou.txt" ]]; then
+            pesan
         elif [[ -f "rockyou.txt" ]]; then
             pesan
         else
@@ -71,6 +73,8 @@ elif [[ $(uname -o) == "GNU/Linux" ]]; then
     rockyou(){
         if [[ -f "rockyou.txt.gz" ]]; then
             gzip -d "rockyou.txt.gz"
+            pesan
+        elif [[ -f "rockyou.txt.gx" && -f "rockyou.txt" ]]; then
             pesan
         elif [[ -f "rockyou.txt" ]]; then
             pesan
