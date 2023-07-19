@@ -1,0 +1,178 @@
+#!/usr/bin/env python
+
+import hashlib
+import os
+import sys
+import time
+import threading
+import tkinter as tk
+from tkinter import filedialog, messagebox
+from colorama import Fore
+
+# Kode warna
+m = Fore.LIGHTRED_EX   # merah
+h = Fore.LIGHTGREEN_EX # hijau
+c = Fore.LIGHTCYAN_EX  # cyan
+p = Fore.RESET         # putih
+w = Fore.LIGHTWHITE_EX # putih terang
+k = Fore.LIGHTYELLOW_EX # kuning
+b = Fore.LIGHTBLUE_EX  # biru
+
+# Algoritma hash yang didukung
+algoritma_hash = {
+    "1": ("md5", hashlib.md5),
+    "2": ("sha1", hashlib.sha1),
+    "3": ("sha256", hashlib.sha256),
+    "4": ("sha512", hashlib.sha512)
+}
+
+animation_delay = 0
+stop_animation = False
+
+def animasi(hash_target):
+    simbol = ['|', '/', '-', '\\']
+    indeks_simbol = 0
+    while not stop_animation:
+        simbol_sekarang = simbol[indeks_simbol]
+        label_animasi.config(text=f"{w}[{k}*{w}] Sedang memecahkan hash password {simbol_sekarang}{p}")
+        indeks_simbol = (indeks_simbol + 1) % len(simbol)
+        time.sleep(animation_delay)
+
+def hentikan_animasi():
+    global stop_animation
+    time.sleep(0)
+    stop_animation = True
+
+def cek_hash(hash_target, algoritma):
+    hash_panjang = len(hash_target)
+    if algoritma == "md5" and hash_panjang != 32:
+        return False
+    elif algoritma == "sha1" and hash_panjang != 40:
+        return False
+    elif algoritma == "sha256" and hash_panjang != 64:
+        return False
+    elif algoritma == "sha512" and hash_panjang != 128:
+        return False
+    return True
+
+def pemecah_hash_password():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+    def tampilkan_hasil():
+        algoritma, fungsi_hash = algoritma_hash[algoritma_var.get()]
+        hash_target = entry_hash.get().strip()
+
+        if not cek_hash(hash_target, algoritma):
+            messagebox.showerror("Error", "Hash password tidak valid.")
+            return
+
+        try:
+            if not wordlist_file:
+                messagebox.showerror("Error", "Anda belum memilih file wordlist.")
+                return
+
+            with open(wordlist_file, 'r', encoding='latin-1', errors='ignore') as f:
+                seluruh_password = f.readlines()
+
+            jumlah_seluruh_password = len(seluruh_password)
+            label_jumlah_password.config(text=f"{w}[{h}+{w}] Jumlah password wordlist {wordlist_file}: {jumlah_seluruh_password}{p}")
+
+            password_ditemukan = False
+            jumlah_password_dicoba = 0
+
+            thread_animasi = threading.Thread(target=animasi, args=(hash_target,))
+            thread_animasi.start()
+
+            for password in seluruh_password:
+                jumlah_password_dicoba += 1
+                password = password.strip()
+                password_hash = fungsi_hash(password.encode('utf-8')).hexdigest()
+                if password_hash == hash_target:
+                    password_ditemukan = True
+                    hentikan_animasi()
+                    messagebox.showinfo("Hasil", f"Password ditemukan: {password}\nJenis hash: {algoritma}\nHash password: {hash_target}\nJumlah password yang dicoba: {jumlah_password_dicoba}")
+                    break
+
+            if not password_ditemukan:
+                hentikan_animasi()
+                messagebox.showinfo("Hasil", f"Password tidak ditemukan dalam wordlist.\nJenis hash: {algoritma}\nHash password: {hash_target}\nJumlah password yang dicoba: {jumlah_password_dicoba}")
+
+        except FileNotFoundError:
+            messagebox.showerror("Error", "File wordlist tidak ditemukan.")
+        except IOError:
+            messagebox.showerror("Error", "Kesalahan saat membaca file wordlist.")
+
+    root = tk.Tk()
+    root.title("Pemecah Hash Password")
+    root.geometry("500x350")
+
+    label_judul = tk.Label(root, text="Pemecah Hash Password", font=("Helvetica", 16, "bold"))
+    label_judul.pack(pady=10)
+
+    frame_algoritma = tk.Frame(root)
+    frame_algoritma.pack()
+
+    label_algoritma = tk.Label(frame_algoritma, text="Pilih algoritma hash:", font=("Helvetica", 12))
+    label_algoritma.pack(side=tk.LEFT, padx=10)
+
+    algoritma_var = tk.StringVar()
+    algoritma_var.set("1")  # Pilihan default algoritma hash (md5)
+    for i, (algoritma, _) in algoritma_hash.items():
+        rb = tk.Radiobutton(frame_algoritma, text=f"{algoritma}", variable=algoritma_var, value=i, font=("Helvetica", 12))
+        rb.pack(side=tk.LEFT)
+
+    frame_hash = tk.Frame(root)
+    frame_hash.pack()
+
+    label_hash = tk.Label(frame_hash, text="Masukkan hash password:", font=("Helvetica", 12))
+    label_hash.pack(side=tk.LEFT, padx=10)
+
+    entry_hash = tk.Entry(frame_hash, width=50, font=("Helvetica", 12))
+    entry_hash.pack(side=tk.LEFT)
+
+    frame_wordlist = tk.Frame(root)
+    frame_wordlist.pack()
+
+    wordlist_file = ""
+
+    def browse_wordlist():
+        nonlocal wordlist_file
+        wordlist_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Pilih file wordlist", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+        label_wordlist.config(text=f"{w}[{h}+{w}] File wordlist terpilih: {wordlist_file}")
+
+    label_wordlist = tk.Label(frame_wordlist, text="Pilih file wordlist:", font=("Helvetica", 12))
+    label_wordlist.pack(side=tk.LEFT, padx=10)
+
+    btn_browse = tk.Button(frame_wordlist, text="Cari...", command=browse_wordlist, font=("Helvetica", 12))
+    btn_browse.pack(side=tk.LEFT)
+
+    frame_animasi = tk.Frame(root)
+    frame_animasi.pack()
+
+    label_animasi = tk.Label(frame_animasi, text="", font=("Helvetica", 12))
+    label_animasi.pack()
+
+    frame_hasil = tk.Frame(root)
+    frame_hasil.pack()
+
+    label_jumlah_password = tk.Label(frame_hasil, text="", font=("Helvetica", 12))
+    label_jumlah_password.pack()
+
+    btn_proses = tk.Button(root, text="Proses", command=tampilkan_hasil, font=("Helvetica", 14, "bold"))
+    btn_proses.pack(pady=20)
+
+def tutup_program():
+    hentikan_animasi()
+    root.destroy()
+
+btn_keluar = tk.Button(root, text="Keluar", command=tutup_program, font=("Helvetica", 14, "bold"))
+btn_keluar.pack()
+
+root.protocol("WM_DELETE_WINDOW", tutup_program)
+root.mainloop()
+
+if __name__ == "__main__":
+    pemecah_hash_password()
