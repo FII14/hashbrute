@@ -168,6 +168,6 @@ try:
     # Memanggil fungsi utama
     pemecah_hash_password()
 except KeyboardInterrupt:
-    print(f"\n\n{w}[{m}-{w}] Keluar dari program {p}")
+    print(f"\n{w}[{m}-{w}] Keluar dari program {p}")
     hentikan_animasi()
     sys.exit(0)
