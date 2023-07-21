@@ -96,7 +96,7 @@ def pemecah_hash_password():
     pilihan = input(f"\n[{b}#{w}] Masukkan jenis algoritma hash: ").strip()
 
     if pilihan.upper() == 'K':
-        print(f"\n[{h}+{w}] Keluar dari program.")
+        print(f"[{h}+{w}] Keluar dari program.")
         sys.exit(0)
 
     try:
