@@ -87,7 +87,7 @@ def pemecah_hash_password():
 {c}==========================================================={p}
 {p}""")
 
-    print(f"{h}Algoritma hash yang didukung{w}:")
+    print(f"{h}Jenis algoritma hash yang didukung{w}:")
     print("=============================")
     for i, (algoritma, _) in algoritma_hash.items():
         print(f"[{k}{i}{w}] {algoritma}")
