@@ -102,13 +102,13 @@ def pemecah_hash_password():
     try:
         algoritma, fungsi_hash = algoritma_hash[pilihan]
     except KeyError:
-        print(f"\n[{m}-{w}] Jenis algoritma hash tidak ada.")
+        print(f"[{m}-{w}] Jenis algoritma hash tidak ada.")
         sys.exit(1)
 
     hash_target = input(f"[{b}#{w}] Masukkan hash password: ").strip()
 
     if not cek_hash(hash_target, algoritma):
-        print(f"\n[{m}-{w}] Hash password tidak valid.")
+        print(f"[{m}-{w}] Hash password tidak valid.")
         sys.exit(1)
 
     file_wordlist = input(f"[{b}#{w}] Masukkan path ke file wordlist: ").strip()
@@ -158,10 +158,10 @@ def pemecah_hash_password():
             print(f"{c}-----------------------------------------------------------{p}")
 
     except FileNotFoundError:
-        print(f"\n{w}[{m}-{w}] File wordlist tidak ditemukan.")
+        print(f"{w}[{m}-{w}] File wordlist tidak ditemukan.")
         sys.exit(1)
     except IOError:
-        print(f"\n{w}[{m}-{w}] Kesalahan saat membaca file wordlist.")
+        print(f"{w}[{m}-{w}] Kesalahan saat membaca file wordlist.")
         sys.exit(1)
 
 try:
