@@ -93,7 +93,7 @@ def pemecah_hash_password():
         print(f"[{k}{i}{w}] {algoritma}")
     print(f"[{m}K{w}] Keluar")
 
-    pilihan = input(f"\n[{b}#{w}] Masukkan nomor algoritma hash (1-4) atau 'K' untuk keluar: ").strip()
+    pilihan = input(f"\n[{b}#{w}] Masukkan jenis algoritma hash: ").strip()
 
     if pilihan.upper() == 'K':
         print(f"\n[{h}+{w}] Keluar dari program.")
@@ -102,7 +102,7 @@ def pemecah_hash_password():
     try:
         algoritma, fungsi_hash = algoritma_hash[pilihan]
     except KeyError:
-        print(f"\n[{m}-{w}] Masukan tidak valid.")
+        print(f"\n[{m}-{w}] Jenis algoritma hash tidak ada.")
         sys.exit(1)
 
     hash_target = input(f"[{b}#{w}] Masukkan hash password: ").strip()
