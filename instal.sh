@@ -1,83 +1,107 @@
-#!/bin/bash
+#!/usr/bin/env python3
 # @ Script  : Instal hashbrute
 # @ Pembuat : Rofi
 
-g="\e[1;32m"
-r="\e[0m"
-c="\e[1;36m"
+from sys import platform
+import os
+import shutil
+import requests
+import gzip
 
-clear
+g = "\033[1;32m"
+r = "\033[0m"
+c = "\033[1;36m"
 
-echo -e "${c} ___ _   _ ____ _____  _    _     "
-echo -e "${c}|_ _| \ | / ___|_   _|/ \  | |    "
-echo -e "${c} | ||  \| \___ \ | | / _ \ | |    "
-echo -e "${c} | || |\  |___) || |/ ___ \| |___ "
-echo -e "${c}|___|_| \_|____/ |_/_/   \_\_____|"                                         
-echo -e "${r}"
+def clear_screen():
+    os.system("clear" if platform != "win32" else "cls")
 
-# Periksa dan berikan izin eksekusi pada file hashbrute
-chmod +x src/hashbrute
+def display_header():
+    print(f"{c} ___ _   _ ____ _____  _    _     ")
+    print(f"{c}|_ _| \ | / ___|_   _|/ \  | |    ")
+    print(f"{c} | ||  \| \___ \ | | / _ \ | |    ")
+    print(f"{c} | || |\  |___) || |/ ___ \| |___ ")
+    print(f"{c}|___|_| \_|____/ |_/_/   \_\_____|")
+    print(f"{r}")
 
-# Fungsi untuk menampilkan pesan selesai instalasi
-pesan(){
-    echo -e "${g}[•] ${r}Instalasi selesai."
-    echo -e "${g}[•] ${r}Anda dapat menjalankannya dengan menjalankan perintah '${g}hashbrute${r}'"
-    exit 0
-}
+def pesan():
+    print(f"{g}[•] {r}Instalasi selesai.")
+    print(f"{g}[•] {r}Anda dapat menjalankannya dengan menjalankan perintah 'hashbrute'")
+    exit(0)
 
-# Fungsi untuk memeriksa dan mendapatkan rockyou.txt
-rockyou(){
-    if [[ -f "rockyou.txt" ]]; then
-        pesan
-    elif [[ -f "rockyou.txt.gz" ]]; then
-        gzip -d "rockyou.txt.gz"
-        pesan
-    elif [[ -f "rockyou.txt.gx" && -f "rockyou.txt" ]]; then
-        pesan
-    else
-        wget https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz
-        gzip -d "rockyou.txt.gz"
-        pesan
-    fi
-}
+def rockyou():
+    if os.path.isfile("rockyou.txt"):
+        pesan()
+    elif os.path.isfile("rockyou.txt.gz"):
+        with gzip.open("rockyou.txt.gz", "rb") as f_in:
+            with open("rockyou.txt", "wb") as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        pesan()
+    elif os.path.isfile("rockyou.txt.gx") and os.path.isfile("rockyou.txt"):
+        pesan()
+    else:
+        url = "https://gitlab.com/kalilinux/packages/wordlists/-/raw/kali/master/rockyou.txt.gz"
+        response = requests.get(url, stream=True)
+        with open("rockyou.txt.gz", "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+        with gzip.open("rockyou.txt.gz", "rb") as f_in:
+            with open("rockyou.txt", "wb") as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        os.remove("rockyou.txt.gz")
+        pesan()
 
-# Android (Termux)
-if [[ $(uname -o) == "Android" ]]; then
-    pkg update
-    pkg install python
-    pkg install wget
-    pip install -r persyaratan.txt
-    mv src/hashbrute /data/data/com.termux/files/usr/bin
+def install_dependencies():
+    if platform == "linux" or platform == "linux2":
+        os.system("sudo apt-get update")
+        os.system("sudo apt-get install python3")
+        os.system("sudo apt-get install python3-pip")
+    os.system("pip3 install -r persyaratan.txt")
 
-    # Periksa dan siapkan direktori wordlists
-    direktori="/data/data/com.termux/files/usr/share/wordlists"
-    if [[ -d "${direktori}" ]]; then
-        cd "${direktori}"
-        rockyou
-    else
-        cd "/data/data/com.termux/files/usr/share/"
-        mkdir "wordlists"
-        cd "wordlists"
-        rockyou
-    fi
-        
-# Linux Ubuntu dan Debian beserta keturunannya
-elif [[ $(uname -o) == "GNU/Linux" ]]; then
-    sudo apt-get update 
-    sudo apt-get install python3
-    sudo apt-get install python3-pip
-    pip3 install -r persyaratan.txt 
-    mv src/hashbrute /usr/bin
+def main():
+    clear_screen()
+    display_header()
 
-    # Periksa dan siapkan direktori wordlists
-    direktori="/usr/share/wordlists"
-    if [[ -d "${direktori}" ]]; then
-        cd "${direktori}"
-        rockyou
-    else
-        sudo mkdir -p "${direktori}"
-        sudo chown -R $USER:$USER "${direktori}"
-        cd "${direktori}"
-        rockyou
-    fi
-fi
+    # Periksa dan berikan izin eksekusi pada file hashbrute
+    os.system("chmod +x src/hashbrute")
+
+    install_dependencies()
+
+    # Android (Termux)
+    if platform == "linux" and os.path.exists("/data/data/com.termux/files/usr/bin"):
+        os.system("pkg update")
+        os.system("pkg install python")
+        os.system("pkg install wget")
+        os.system("pip install -r persyaratan.txt")
+        os.system("mv src/hashbrute /data/data/com.termux/files/usr/bin")
+
+        # Periksa dan siapkan direktori wordlists
+        direktori = "/data/data/com.termux/files/usr/share/wordlists"
+        if os.path.exists(direktori):
+            os.chdir(direktori)
+            rockyou()
+        else:
+            os.makedirs(direktori)
+            os.chdir(direktori)
+            rockyou()
+
+    # Linux Ubuntu dan Debian beserta keturunannya
+    elif platform == "linux" and os.geteuid() == 0:
+        os.system("sudo apt-get update")
+        os.system("sudo apt-get install python3")
+        os.system("sudo apt-get install python3-pip")
+        os.system("pip3 install -r persyaratan.txt")
+        os.system("mv src/hashbrute /usr/bin")
+
+        # Periksa dan siapkan direktori wordlists
+        direktori = "/usr/share/wordlists"
+        if os.path.exists(direktori):
+            os.chdir(direktori)
+            rockyou()
+        else:
+            os.makedirs(direktori)
+            os.chown(direktori, os.getuid(), os.getgid())
+            os.chdir(direktori)
+            rockyou()
+
+if __name__ == "__main__":
+    main()
