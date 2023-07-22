@@ -120,7 +120,7 @@ def pemecah_hash_password():
             jumlah_seluruh_password = len(seluruh_password)
             print(f"\n{w}[{k}*{w}] Menghitung jumlah password wordlist {file_wordlist}{p}")
             time.sleep(3)
-            print(f"\r{w}[{h}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
+            print(f"{w}[{h}+{w}] Jumlah password wordlist {file_wordlist}: {jumlah_seluruh_password}{p}")
             time.sleep(3)
 
         print()
